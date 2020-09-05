@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "723687265312",
+    "firebase_url": "https://recruit-a-thon.firebaseio.com",
+    "project_id": "recruit-a-thon",
+    "storage_bucket": "recruit-a-thon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:723687265312:android:9d9e5ff5614bc054521845",
+        "android_client_info": {
+          "package_name": "com.app.recruitathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "723687265312-0ufuia13p8ir2ovuvhekul7afaj6elmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkcPHwgCM6NWVHHRj9LRWvBUYMrZwwZL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "723687265312-0ufuia13p8ir2ovuvhekul7afaj6elmn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
