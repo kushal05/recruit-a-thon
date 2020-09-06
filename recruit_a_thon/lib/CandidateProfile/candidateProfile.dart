@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CandidateProfile extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.deepPurpleAccent[200]
+      ));
     return Scaffold(
       body:ListView(
         children: <Widget>[
