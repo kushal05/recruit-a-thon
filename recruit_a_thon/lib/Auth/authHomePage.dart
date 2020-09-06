@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'login.dart';
 import 'signUp.dart';
 
+// ignore: must_be_immutable
 class AuthHomePage extends StatelessWidget {
 
   List<String> tabList = ["LOGIN", "SIGN UP"];
@@ -11,6 +12,7 @@ class AuthHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      // ignore: missing_return
       onWillPop: (){
         SystemChannels.platform.invokeMethod('SystemNavigator.pop');
       },

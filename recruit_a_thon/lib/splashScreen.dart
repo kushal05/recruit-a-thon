@@ -22,21 +22,23 @@ class SplashScreen extends StatelessWidget {
             children: <Widget>[
               SizedBox(
                 width: 350.0,
-                child: TypewriterAnimatedTextKit(
-                    onTap: () {
-                      print("Tapped");
-                    },
-                    repeatForever: true,
-                    speed: Duration(milliseconds: 200),
-                    text: ["Recruit-a-thon"],
-                    textStyle: TextStyle(
-                        fontSize: 40.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300),
-                    textAlign: TextAlign.start,
-                    alignment:
-                        AlignmentDirectional.topStart // or Alignment.topLeft
-                    ),
+                child: Center(
+                  child: TypewriterAnimatedTextKit(
+                      onTap: () {
+                        print("Tapped");
+                      },
+                      repeatForever: true,
+                      speed: Duration(milliseconds: 200),
+                      text: ["Recruit-a-thon"],
+                      textStyle: TextStyle(
+                          fontSize: 40.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300),
+                      textAlign: TextAlign.start,
+                      alignment:
+                          AlignmentDirectional.topStart // or Alignment.topLeft
+                      ),
+                ),
               ),
               SizedBox(height: 30,),
               Text(
