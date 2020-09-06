@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
+import 'package:recruitathon/Auth/authHomePage.dart';
 import 'package:recruitathon/CandidateList/listOfCandidates.dart';
 import 'package:recruitathon/Models/User.dart';
 import 'package:recruitathon/globals.dart';
-
-
-=======
->>>>>>> 5ed3166b61fc05c47b82d55e52f7584c406e729d
 import '../CandidateProfile/candidateProfile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -84,16 +80,8 @@ class _LoginState extends State<Login> {
             key: loginKey,
             child: Column(
               children: <Widget>[
-                inputField(
-                    type: "Email",
-                    hint: "Email...",
-                    pass: false
-                ),
-                inputField(
-                    type: "Password",
-                    hint: "Password...",
-                    pass: true
-                ),
+                inputField(type: "Email", hint: "Email...", pass: false),
+                inputField(type: "Password", hint: "Password...", pass: true),
               ],
             ),
           ),
@@ -120,79 +108,71 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
+          firebaseTestWidget()
         ],
       )),
     );
   }
-  Widget inputField({String type, String hint, bool pass = false}){
-    return Container(
-      height: 60,
-      margin: EdgeInsets.only(left: 30, right: 30, top: 13),
-      padding: EdgeInsets.only(left: 20),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Center(
-        child: OutlineButton(
-          child: Text("Login"),
-          onPressed: () {           
-            Query query = FirebaseFirestore.instance.collection('Users');
-            query.get().then((value) => {
-              value.docs.forEach((element) { 
-                User u = User();
-                element.data().forEach((key, value) { 
-                  debugPrint("$key $value");
-                  switch(key)
-                  {
-                    case "id":
-                    u.Id = value;
-                    break;
-                    case "email":
-                    u.Email = value;
-                    break;
-                    case "image":
-                    u.Image = value;
-                    break;
-                    case "skills":
-                    u.Skills = value;
-                    break;
-                    case "password":
-                    u.Password = value;
-                    break;
-                    case "projects":
-                    u.Projects = value;
-                    break;
-                    case "role":
-                    u.Role = value;
-                    break;
-                    case "certificates":
-                    u.Certificates = value;
-                    break;
-                    case "phone":
-                    u.Phone = value.toString();
-                    break;
-                    case "name":
-                    u.Name = value;
-                    break;
-                    case "locations":
-                    u.Locations = value;
-                    break;
-                  }
-                }); 
-                users.add(u);
-                debugPrint("lllllll ${users.length}");
-              })
-            }).whenComplete(() => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CandidatesList()),
-              )
-            });        
-          },
-        )
-        ),
-      ),
+
+  Widget firebaseTestWidget(){
+    return OutlineButton(
+      child: Text("Check"),
+      onPressed: () {
+        Query query = FirebaseFirestore.instance.collection('Users');
+        query
+            .get()
+            .then((value) => {
+          value.docs.forEach((element) {
+            User u = User();
+            element.data().forEach((key, value) {
+              debugPrint("$key $value");
+              switch (key) {
+                case "id":
+                  u.Id = value;
+                  break;
+                case "email":
+                  u.Email = value;
+                  break;
+                case "image":
+                  u.Image = value;
+                  break;
+                case "skills":
+                  u.Skills = value;
+                  break;
+                case "password":
+                  u.Password = value;
+                  break;
+                case "projects":
+                  u.Projects = value;
+                  break;
+                case "role":
+                  u.Role = value;
+                  break;
+                case "certificates":
+                  u.Certificates = value;
+                  break;
+                case "phone":
+                  u.Phone = value.toString();
+                  break;
+                case "name":
+                  u.Name = value;
+                  break;
+                case "locations":
+                  u.Locations = value;
+                  break;
+              }
+            });
+            users.add(u);
+            debugPrint("lllllll ${users.length}");
+          })
+        })
+            .whenComplete(() => {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CandidatesList()),
+          )
+        });
+      },
     );
   }
 }

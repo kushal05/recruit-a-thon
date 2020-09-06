@@ -103,3 +103,52 @@ class _CustomPainter extends BoxPainter {
     );
   }
 }
+
+Widget inputField({String type, String hint, bool pass = false, int keyboardType = 1}){
+  return Container(
+    height: 70,
+    margin: EdgeInsets.only(left: 30, right: 30, top: 13),
+    padding: EdgeInsets.only(left: 20),
+    decoration: BoxDecoration(
+      color: Colors.grey[100],
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Center(
+      child: TextFormField(
+        keyboardType: (keyboardType == 0) ? TextInputType.number : TextInputType.text,
+        maxLines: (pass) ? 1 : null,
+        onChanged: (value){},
+        obscureText: pass,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: hint ?? "",
+        ),
+        validator: (value){
+          print("Entered text is: $value");
+          Pattern pattern;
+          RegExp regex;
+          if (value.length==0 || value.isEmpty){
+            return "$type $value should not be empty" ;
+          }
+          else {
+            if(type == 'Email') {
+                pattern = r"[a-zA-Z]@[a-zA-Z].[a-zA-Z]";
+                regex = new RegExp(pattern);
+                if(!regex.hasMatch(value)){
+                  return 'Email is not in a valid format';
+                }
+            }
+            if(type == 'Phone Number') {
+              pattern = r"^[0-9]{10}$";
+              regex = new RegExp(pattern);
+              if(!regex.hasMatch(value)){
+                return 'Phone Number must be of 10 digits';
+              }
+            }
+            return null;
+          }
+        }
+      ),
+    ),
+  );
+}
