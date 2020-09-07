@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_spinkit:
   firebase_core:
   cloud_firestore: ^0.14.0+2
   shared_preferences:

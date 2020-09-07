@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:recruitathon/Auth/authHomePage.dart';
 import 'package:recruitathon/CandidateList/listOfCandidates.dart';
 import 'package:recruitathon/Models/User.dart';
@@ -14,6 +15,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   List<String> data;
+  bool toggle = false;
+  bool isValidated = true;
 
   void getData() async {
     print("In get data");
@@ -34,7 +37,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     print("In init state");
-    getData();
+    //getData();
     super.initState();
   }
 
@@ -94,12 +97,17 @@ class _LoginState extends State<Login> {
             ),
             child: MaterialButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CandidateProfile()),
-                );
+                getUsers();
+                setState(() {
+                  toggle = true;
+                });
+                // getUsers();
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => CandidateProfile()),
+                // );
               },
-              child: Text(
+              child: toggle?SpinKitWave(color: Colors.white,size:30):Text(
                 "Login",
                 style: TextStyle(
                     fontSize: 20.0,
@@ -108,71 +116,81 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          firebaseTestWidget()
+          isValidated?Container():Center(child: Text("Entered ID and Password not found!. Please try again."),)
         ],
       )),
     );
   }
 
-  Widget firebaseTestWidget(){
-    return OutlineButton(
-      child: Text("Check"),
-      onPressed: () {
-        Query query = FirebaseFirestore.instance.collection('Users');
-        query
-            .get()
-            .then((value) => {
-          value.docs.forEach((element) {
-            User u = User();
-            element.data().forEach((key, value) {
-              debugPrint("$key $value");
-              switch (key) {
-                case "id":
-                  u.Id = value;
-                  break;
-                case "email":
-                  u.Email = value;
-                  break;
-                case "image":
-                  u.Image = value;
-                  break;
-                case "skills":
-                  u.Skills = value;
-                  break;
-                case "password":
-                  u.Password = value;
-                  break;
-                case "projects":
-                  u.Projects = value;
-                  break;
-                case "role":
-                  u.Role = value;
-                  break;
-                case "certificates":
-                  u.Certificates = value;
-                  break;
-                case "phone":
-                  u.Phone = value.toString();
-                  break;
-                case "name":
-                  u.Name = value;
-                  break;
-                case "locations":
-                  u.Locations = value;
-                  break;
-              }
-            });
-            users.add(u);
-            debugPrint("lllllll ${users.length}");
-          })
-        })
-            .whenComplete(() => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CandidatesList()),
-          )
+  void getUsers()
+  {
+    Query query = FirebaseFirestore.instance.collection('Users');
+    query
+        .get()
+        .then((value) => {
+      value.docs.forEach((element) {
+        User u = User();
+        element.data().forEach((key, value) {
+          debugPrint("$key $value");
+          switch (key) {
+            case "id":
+              u.Id = value;
+              break;
+            case "email":
+              u.Email = value;
+              break;
+            case "image":
+              u.Image = value;
+              break;
+            case "skills":
+              u.Skills = value;
+              break;
+            case "password":
+              u.Password = value;
+              break;
+            case "projects":
+              u.Projects = value;
+              break;
+            case "role":
+              u.Role = value;
+              break;
+            case "certificates":
+              u.Certificates = value;
+              break;
+            case "phone":
+              u.Phone = value.toString();
+              break;
+            case "name":
+              u.Name = value;
+              break;
+            case "locations":
+              u.Locations = value;
+              break;
+          }
         });
-      },
-    );
+        users.add(u);
+        userMapping[u.Email] = u;
+        debugPrint("lllllll ${users.length}");
+      })
+    }).whenComplete(() {
+      if(userMapping.containsKey(enteredEmail)&&userMapping[enteredEmail].Password==enteredPassword)
+      {
+        currentUser = userMapping[enteredEmail];
+        isValidated = true;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CandidateProfile()),
+        );
+      }
+      else
+      {
+        setState(() {
+          toggle = false;
+          isValidated = false;
+        });
+      }
+    });
   }
 }
+
+

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../globals.dart';
 import 'login.dart';
 import 'signUp.dart';
 
@@ -117,7 +118,12 @@ Widget inputField({String type, String hint, bool pass = false, int keyboardType
       child: TextFormField(
         keyboardType: (keyboardType == 0) ? TextInputType.number : TextInputType.text,
         maxLines: (pass) ? 1 : null,
-        onChanged: (value){},
+        onChanged: (value){
+          if(pass)
+          enteredPassword = value;
+          else
+          enteredEmail = value;
+        },
         obscureText: pass,
         decoration: InputDecoration(
           border: InputBorder.none,
