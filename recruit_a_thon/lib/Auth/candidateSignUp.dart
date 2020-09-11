@@ -56,13 +56,10 @@ class _CandidateSignUpState extends State<CandidateSignUp> {
               color: Colors.deepPurpleAccent,
             ),
             child: MaterialButton(
-              child: Text(
-                "Sign Up",
-                style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-              ),
+              onPressed: (){
+                widget.pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.easeInOutQuad);
+              },
+                child: Icon(Icons.arrow_downward, color: Colors.white, size: 30,)
             ),
           ),
         ],

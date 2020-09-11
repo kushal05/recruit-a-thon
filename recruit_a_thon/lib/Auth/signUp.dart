@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recruitathon/Auth/authHomePage.dart';
 import 'package:recruitathon/Auth/candidateSignUp.dart';
 import 'package:recruitathon/Auth/recruiterSignUp.dart';
+import 'package:recruitathon/Auth/uploadProfileImage.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -25,7 +26,8 @@ class _SignUpState extends State<SignUp> {
         children: <Widget>[
           basicUserDetailsForm(),
           (candidateRole) ? CandidateSignUp(signUpKey: _signUpKey, pageController: signUpController)
-                          : RecruiterSignUp(signUpKey: _signUpKey, pageController: signUpController,)
+                          : RecruiterSignUp(signUpKey: _signUpKey, pageController: signUpController,),
+          UploadProfileImage(signUpKey: _signUpKey, pageController: signUpController),
         ],
       )
     );
